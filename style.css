@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  color: white;
+  font-family: 'Source Code Pro', monospace;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#overlay-text {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+#main-word {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+#meaning-text {
+  font-size: 1.2rem;
+  opacity: 1;
+}
+
+#ascii-head {
+  margin-top: 1rem;
+  font-size: 6px;
+  line-height: 1.1;
+  white-space: pre;
+  text-align: center;
+  max-width: 100vw;
+}

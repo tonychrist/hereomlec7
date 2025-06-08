@@ -183,7 +183,7 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
             } else {
-                coordinatesElement.textContent = "[location not found]";
+                coordinatesElement.textContent = "[EARTH LOCATION NOT FOUND]";
             }
         }
 
@@ -191,34 +191,30 @@
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             
-            let locationString = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
-            coordinatesElement.textContent = locationString; // Show coordinates immediately
+            coordinatesElement.textContent = "[FETCHING LOCATION...]"; // Show fetching message
 
-            // Use a reverse geocoding API to get city and state
+            // Use a reverse geocoding API to get city and country
             try {
                 const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`);
                 const data = await response.json();
                 
                 const city = data.address.city || data.address.town || data.address.village;
-                const state = data.address.state;
+                const country = data.address.country;
                 
-                if (city && state) {
-                    locationString += ` ${city}, ${state}`;
-                } else if (city) {
-                    locationString += ` ${city}`;
-                } else if (state) {
-                    locationString += ` ${state}`;
+                if (city && country) {
+                    coordinatesElement.textContent = `${city.toUpperCase()}, ${country.toUpperCase()}, EARTH`;
+                } else {
+                    coordinatesElement.textContent = "EARTH"; // Fallback if city/country isn't found
                 }
                 
-                coordinatesElement.textContent = locationString;
             } catch (error) {
                 console.error("Reverse geocoding failed:", error);
-                // If the API fails, the coordinates will still be displayed.
+                coordinatesElement.textContent = "[EARTH LOCATION NOT FOUND]";
             }
         }
 
         function showError(error) {
-            coordinatesElement.textContent = "[location not found]";
+            coordinatesElement.textContent = "[EARTH LOCATION NOT FOUND]";
         }
 
 
@@ -246,7 +242,7 @@
         
         // Set intervals
         setInterval(updateTime, 1000);
-        setInterval(changeMeaning, 5000); // Changed to 5 seconds
+        setInterval(changeMeaning, 6000); // Changed to 6 seconds
 
     </script>
 

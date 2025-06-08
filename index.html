@@ -201,11 +201,14 @@
                 const city = data.address.city || data.address.town || data.address.village;
                 const country = data.address.country;
                 
+                let locationString = "";
                 if (city && country) {
-                    coordinatesElement.textContent = `${city.toUpperCase()}, ${country.toUpperCase()}, EARTH`;
+                    locationString = `${city.toUpperCase()}, ${country.toUpperCase()}, EARTH<br>${lat.toFixed(6)}, ${lon.toFixed(6)}`;
                 } else {
-                    coordinatesElement.textContent = "EARTH"; // Fallback if city/country isn't found
+                     locationString = `EARTH<br>${lat.toFixed(6)}, ${lon.toFixed(6)}`;
                 }
+                // Use .innerHTML to render the <br> tag for a line break
+                coordinatesElement.innerHTML = locationString;
                 
             } catch (error) {
                 console.error("Reverse geocoding failed:", error);
